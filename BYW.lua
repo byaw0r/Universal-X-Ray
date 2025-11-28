@@ -9,12 +9,12 @@ screenGui.ResetOnSpawn = false
 
 local xrayBtn = Instance.new("TextButton")
 xrayBtn.Name = "XRayBtn"
-xrayBtn.Size = UDim2.new(0, 50, 0, 50)
+xrayBtn.Size = UDim2.new(0, 40, 0, 40)
 xrayBtn.Position = UDim2.new(0, 10, 0, 10)
 xrayBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 xrayBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
 xrayBtn.Text = "B"
-xrayBtn.TextSize = 24
+xrayBtn.TextSize = 28
 xrayBtn.Font = Enum.Font.GothamBold
 xrayBtn.BorderSizePixel = 0
 xrayBtn.Active = true
