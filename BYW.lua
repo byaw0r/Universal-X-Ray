@@ -1,6 +1,6 @@
 --BYW SCRIPT
 local xrayEnabled = false
-local xrayConnection
+local xrayParts = {}
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "XRayMenu"
@@ -29,25 +29,23 @@ local function toggleXRay()
     xrayEnabled = not xrayEnabled
     
     if xrayEnabled then
-        xrayConnection = game:GetService("RunService").RenderStepped:Connect(function()
-            for _, part in pairs(workspace:GetDescendants()) do
-                if part:IsA("BasePart") and part.Parent ~= game.Players.LocalPlayer.Character then
-                    part.LocalTransparencyModifier = 0.5
-                end
-            end
-        end)
         xrayBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-    else
-        if xrayConnection then
-            xrayConnection:Disconnect()
-            xrayConnection = nil
-        end
+        
         for _, part in pairs(workspace:GetDescendants()) do
-            if part:IsA("BasePart") then
+            if part:IsA("BasePart") and part.Parent ~= game.Players.LocalPlayer.Character then
+                part.LocalTransparencyModifier = 0.5
+                table.insert(xrayParts, part)
+            end
+        end
+    else
+        xrayBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        
+        for _, part in pairs(xrayParts) do
+            if part and part.Parent then
                 part.LocalTransparencyModifier = 0
             end
         end
-        xrayBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        xrayParts = {}
     end
 end
 
@@ -57,8 +55,7 @@ end)
 
 game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
-    
-    if input.KeyCode == Enum.KeyCode.X then
+    if input.KeyCode == Enum.KeyCode.N then
         toggleXRay()
     end
 end)
